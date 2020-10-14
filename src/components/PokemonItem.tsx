@@ -6,5 +6,11 @@ type Props = {
 };
 
 export function PokemonItem({ pokemon }: Props) {
-  return <div key={pokemon?.id}>{pokemon?.name}</div>;
+  return (
+    <div>
+      <div>{pokemon.image && <img src={pokemon.image} />}</div>
+      <p>#{pokemon.number}</p>
+      <p>{pokemon.name}</p>
+    </div>
+  );
 }
