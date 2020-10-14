@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { useAllPokemons } from "./useAllPokemons";
+import { PokemonList } from "./PokemonList";
 
 function App() {
   return (
@@ -12,18 +12,6 @@ function App() {
           <PokemonList />
         </React.Suspense>
       </ErrorBoundary>
-    </>
-  );
-}
-
-function PokemonList(): JSX.Element {
-  const { pokemons } = useAllPokemons();
-
-  return (
-    <>
-      {pokemons?.map((pokemon) => (
-        <div key={pokemon?.id}>{pokemon?.name}</div>
-      ))}
     </>
   );
 }
