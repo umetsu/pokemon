@@ -1,9 +1,14 @@
+import { useQuery } from "react-query";
+import { GetAllPokemonsQuery } from "../generated/graphql";
 import { fetchAllPokemons } from "../network/pokemon-api";
-import { createResource } from "../utils";
 
-const pokemonsResource = createResource(fetchAllPokemons());
+export function useAllPokemons(): {
+  pokemons: GetAllPokemonsQuery["pokemons"];
+} {
+  const { data } = useQuery<GetAllPokemonsQuery>({
+    queryKey: "pokemons",
+    queryFn: fetchAllPokemons,
+  });
 
-export function useAllPokemons() {
-  const { pokemons } = pokemonsResource.read();
-  return { pokemons };
+  return { pokemons: data?.pokemons ?? [] };
 }
