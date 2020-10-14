@@ -110,16 +110,21 @@ export type GetAllPokemonsQuery = (
   { __typename?: 'Query' }
   & { pokemons?: Maybe<Array<Maybe<(
     { __typename?: 'Pokemon' }
-    & Pick<Pokemon, 'id' | 'number' | 'image' | 'name' | 'types'>
-    & { attacks?: Maybe<(
-      { __typename?: 'PokemonAttack' }
-      & { fast?: Maybe<Array<Maybe<(
-        { __typename?: 'Attack' }
-        & Pick<Attack, 'name' | 'type' | 'damage'>
-      )>>> }
-    )>, evolutions?: Maybe<Array<Maybe<(
-      { __typename?: 'Pokemon' }
-      & Pick<Pokemon, 'id' | 'name' | 'image' | 'types'>
+    & PokemonFragment
+  )>>> }
+);
+
+export type PokemonFragment = (
+  { __typename?: 'Pokemon' }
+  & Pick<Pokemon, 'id' | 'number' | 'image' | 'name' | 'types'>
+  & { attacks?: Maybe<(
+    { __typename?: 'PokemonAttack' }
+    & { fast?: Maybe<Array<Maybe<(
+      { __typename?: 'Attack' }
+      & Pick<Attack, 'name' | 'type' | 'damage'>
     )>>> }
+  )>, evolutions?: Maybe<Array<Maybe<(
+    { __typename?: 'Pokemon' }
+    & Pick<Pokemon, 'id' | 'name' | 'image' | 'types'>
   )>>> }
 );

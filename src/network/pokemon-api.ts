@@ -6,24 +6,27 @@ export async function fetchAllPokemons(): Promise<GetAllPokemonsQuery> {
   const query = gql`
     query GetAllPokemons {
       pokemons(first: 151) {
-        id
-        number
-        image
-        name
-        types
-        attacks {
-          fast {
-            name
-            type
-            damage
-          }
-        }
-        evolutions {
-          id
+        ...Pokemon
+      }
+    }
+    fragment Pokemon on Pokemon {
+      id
+      number
+      image
+      name
+      types
+      attacks {
+        fast {
           name
-          image
-          types
+          type
+          damage
         }
+      }
+      evolutions {
+        id
+        name
+        image
+        types
       }
     }
   `;

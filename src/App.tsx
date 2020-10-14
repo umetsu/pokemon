@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { fetchAllPokemons } from "./network/pokemon-api";
+import { createResource } from "./utils";
+
+const pokemonsResource = createResource(fetchAllPokemons());
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ErrorBoundary
+        fallbackRender={({ error }) => <div>{error?.message}</div>}
+      >
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <PokemonList />
+        </React.Suspense>
+      </ErrorBoundary>
+    </>
+  );
+}
+
+function PokemonList(): JSX.Element {
+  const { pokemons } = pokemonsResource.read();
+
+  return (
+    <>
+      {pokemons?.map((pokemon) => (
+        <div key={pokemon?.id}>{pokemon?.name}</div>
+      ))}
+    </>
   );
 }
 
